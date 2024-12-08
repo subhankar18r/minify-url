@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Url shortner</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Generate short url</h1>
+    <form action="/api/url" method="POST">
+      <input type="text" name="url" placeholder="http://example.com" />
+      <button type="submit">Generate</button>
+    </form>
+    <% if (locals.newUrl) { %>
+    <p>
+      url generated: <a href="<%= locals.newUrl %>"></a> <%= locals.newUrl %>
+    </p>
+    <% } %>
+    <br />
+    <% if (locals.urls) { %>
+    <p>Previously generated short urls.</p>
+    <table>
+      <thead>
+        <th>Url</th>
+        <th>Redirect Url</th>
+        <th>Visited</th>
+      </thead>
+      <tbody>
+        <% urls.forEach(url => { %>
+        <tr>
+          <td><%= url.shortId %></td>
+          <td><%= url.redirectUrl %></td>
+          <td><%= url.visitedHistory.length %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </body>
+</html>
